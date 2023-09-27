@@ -187,7 +187,7 @@
 ;; Allow users to provide an optional "init-local" containing personal settings
 (require 'init-local nil t)
 
-(provide 'init)
+(Provide 'init)
 
 ;; Local Variables:
 ;; coding: utf-8
