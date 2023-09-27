@@ -140,8 +140,6 @@
 (require 'init-folding)
 (require 'init-dash)
 
-;;(require 'init-twitter)
-;; (require 'init-mu)
 (require 'init-ledger)
 
 (require 'init-lua)
@@ -152,7 +150,6 @@
 
 (require-package 'sudo-edit)
 (require-package 'gnuplot)
-(require-package 'lua-mode)
 (require-package 'htmlize)
 (when *is-a-mac*
   (require-package 'osx-location))
@@ -167,6 +164,11 @@
   (add-hook 'after-init-hook 'global-eldoc-mode))
 
 (require 'init-direnv)
+
+(when (and (require 'treesit nil t)
+           (fboundp 'treesit-available-p)
+           (treesit-available-p))
+  (require 'init-treesitter))
 
 
 
