@@ -67,8 +67,9 @@
 
 
 
-;;; Newline behaviour (see also electric-indent-mode, enabled above)
+;;; Newline behaviour
 
+(global-set-key (kbd "RET") 'newline-and-indent)
 (defun sanityinc/newline-at-end-of-line ()
   "Move to end of line, enter a newline, and reindent."
   (interactive)
@@ -143,9 +144,6 @@
 
 
 ;;; Handy key bindings
-
-(with-eval-after-load 'help
-  (define-key help-map "A" 'describe-face))
 
 (global-set-key (kbd "C-.") 'set-mark-command)
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
