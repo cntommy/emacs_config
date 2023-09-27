@@ -14,7 +14,7 @@
 (require-package 'git-link)
 
 (when (maybe-require-package 'magit)
-  (setq-default magit-diff-refine-hunk t)
+  (setq-default magit-diff-refine-hunk 'all)
 
   (sanityinc/fullframe-mode 'magit-status-mode)
 

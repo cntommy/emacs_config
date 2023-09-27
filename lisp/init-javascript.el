@@ -48,11 +48,12 @@
   (sanityinc/major-mode-lighter 'js2-jsx-mode "JSX2"))
 
 
-
+(require 'derived)
 (when (and (or (executable-find "rg") (executable-find "ag"))
            (maybe-require-package 'xref-js2))
   (when (executable-find "rg")
     (setq-default xref-js2-search-program 'rg))
+
   (defun sanityinc/enable-xref-js2 ()
     (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))
 
@@ -62,10 +63,8 @@
       (define-key js-mode-map (kbd "M-.") nil)
       (when (boundp 'js-ts-mode-map)
         (define-key js-ts-mode-map (kbd "M-.") nil))))
-
   (with-eval-after-load 'js2-mode
-    (define-key js2-mode-map (kbd "M-.") nil)
-    (add-hook 'js2-mode-hook 'sanityinc/enable-xref-js2)))
+    (define-key js2-mode-map (kbd "M-.") nil)))
 
 
 

@@ -13,8 +13,6 @@
 ;; Note that grammar files from different sources can be differently
 ;; named and configured, so there could be different results. Some
 ;; common remappings are included below.
-
-
 ;;; Enable built-in and pre-installed TS modes if the grammars are available
 
 (defun sanityinc/auto-configure-treesitter ()
@@ -43,7 +41,10 @@ Return a list of languages seen along the way."
                 (let ((ts-mode-name (intern (concat emacs-lang "-ts-mode")))
                       (regular-mode-name (intern (concat emacs-lang "-mode"))))
                   (when (fboundp ts-mode-name)
+<<<<<<< HEAD
                     (message "init-treesitter: using %s in place of %s" ts-mode-name regular-mode-name)
+=======
+>>>>>>> 9bd95b3 (lisp/ mod)
                     (add-to-list 'major-mode-remap-alist
                                  (cons regular-mode-name ts-mode-name))))
                 ;; Remember we saw this language so we don't squash its config when we
@@ -53,6 +54,7 @@ Return a list of languages seen along the way."
 
 (sanityinc/auto-configure-treesitter)
 
+<<<<<<< HEAD
 
 ;;; Support remapping of additional libraries
 
@@ -66,6 +68,15 @@ Return a list of languages seen along the way."
 ;; When there's js-ts-mode, we also prefer it to js2-mode
 (sanityinc/remap-ts-mode 'js2-mode 'js-ts-mode 'javascript)
 (sanityinc/remap-ts-mode 'clojurescript-mode 'clojurescript-ts-mode 'clojure)
+=======
+;; When there's js-ts-mode, we prefer it to js2-mode
+(when-let ((jsmap (alist-get 'js-mode major-mode-remap-alist)))
+  (add-to-list 'major-mode-remap-alist (cons 'js2-mode jsmap)))
+
+(when-let ((jsmap (alist-get 'clojure-mode major-mode-remap-alist)))
+  (add-to-list 'major-mode-remap-alist (cons 'clojurescript-mode 'clojurescript-ts-mode)))
+
+>>>>>>> 9bd95b3 (lisp/ mod)
 
 
 ;; Default
