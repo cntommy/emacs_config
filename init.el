@@ -187,9 +187,10 @@
 (require 'init-locales)
 
 ;; Allow users to provide an optional "init-local" containing personal settings
-(require 'init-local nil t)
+;;(require 'init-local nil t)
+(require 'init-local)
 
-(Provide 'init)
+(provide 'init)
 
 ;; Local Variables:
 ;; coding: utf-8
