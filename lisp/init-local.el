@@ -1,3 +1,4 @@
+;;设置源
 (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                          ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
@@ -19,10 +20,10 @@
 
 ;; 时间显示设置
 (display-time-mode 1)   ;; 启用时间显示设置,在minibuffer上面的那个杠上
-(setq display-time-24hr-format t   ;; 时间使用24小时制
-      display-time-day-and-date t   ;; 时间显示包括日期和具体时间
-      display-time-use-mail-icon t   ;; 时间栏旁边启用邮件设置
-      display-time-interval 10   ;; 时间的变化频率
+(setq display-time-24hr-format t      ;; 时间使用24小时制
+      display-time-day-and-date t     ;; 时间显示包括日期和具体时间
+      display-time-use-mail-icon t    ;; 时间栏旁边启用邮件设置
+      display-time-interval 10        ;; 时间的变化频率
       display-time-format "%A %H:%M")   ;; 显示时间的格式
 (setq system-time-locale "zh_CN"        ;设置系统时间显示格式
       echo-keystrokes 0.1               ;尽快显示按键序列
@@ -83,28 +84,32 @@
   (org-mode . (lambda () (org-superstar-mode 1))))
 
 (use-package ox-hugo
-             :ensure t   ;Auto-install the package from Melpa
-             :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
-             :after ox)
+  :ensure t   ;Auto-install the package from Melpa
+  :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
+  :after ox)
+
+;;公式预览
+(plist-put org-format-latex-options :scale 3)
+
 
 ;; 图片管理
 (require-package 'org-download)
 (use-package org-download
-             :ensure t
-             :config
-             ;; Drag-and-drop to `dired`
-             (add-hook 'dired-mode-hook 'org-download-enable)
-             (require 'org-download)
-             :custom
-             (org-download-method 'directory)
-             (org-download-image-dir "~/notes/images")
-             (org-download-heading-lvl nil)
-             (org-download-timestamp "%Y%m%d-%H%M%S_")
-             ;; 将图片显示大小固定位屏幕宽度的三分之一
-             (org-image-actual-width (/ (display-pixel-width) 3))
-             (org-download-screenshot-method "/usr/local/bin/pngpaste %s")
-             :bind
-             ("C-M-y" . org-download-screenshot))
+  :ensure t
+  :config
+  ;; Drag-and-drop to `dired`
+  (add-hook 'dired-mode-hook 'org-download-enable)
+  (require 'org-download)
+  :custom
+  (org-download-method 'directory)
+  (org-download-image-dir "~/notes/images")
+  (org-download-heading-lvl nil)
+  (org-download-timestamp "%Y%m%d-%H%M%S_")
+  ;; 将图片显示大小固定位屏幕宽度的三分之一
+  (org-image-actual-width (/ (display-pixel-width) 3))
+  (org-download-screenshot-method "/usr/local/bin/pngpaste %s")
+  :bind
+  ("C-M-y" . org-download-screenshot))
 
 ;; 文献管理
 (require-package 'zotxt)
@@ -525,10 +530,33 @@
 (add-hook 'markdown-mode-hook 'pandoc-mode)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
+;;;主题设置
+(load-theme 'gruvbox-dark-soft)
 ;;; (add-to-list 'load-path "~/.emacs.d/")
 ;;; (require 'color-theme)
 ;;; (color-theme-initialize)
 ;;; (color-theme-matrix)
 ;;; (color-theme-oswald)
+
+;;;窗口设置
+;; 最大化
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; 透明标题栏
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+;; (add-to-list 'default-frame-alist '(ns-appearance . dark))
+;; 隐藏标题栏
+;; (require 'ns-auto-titlebar)
+;; (set-frame-parameter (car (frame-list)) 'undecorated t)
+;; (add-to-list 'default-frame-alist '(undecorated . nil))
+;; (add-to-list 'default-frame-alist '(drag-internal-border . 1))
+;; (add-to-list 'default-frame-alist '(internal-border-width . 5))
+;; (setq frame-title-format "")
+
+;; ;; 设置窗口背景色（可选）
+;; (set-background-color "black")
+
+;; ;; ;; 设置窗口透明度（可选）
+;; (set-frame-parameter (selected-frame) 'alpha '(100 100))
+;; (add-to-list 'default-frame-alist '(alpha 100 100))
 
 (provide 'init-local)
